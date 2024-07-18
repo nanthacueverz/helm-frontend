@@ -103,7 +103,7 @@ function App() {
                     <h2>{isEditing ? 'Edit Data' : 'Add Data'}</h2>
                     <form onSubmit={handleSubmit}>
                         <div>
-                            <label>User Name</label>
+                            <label>Name</label>
                             <input
                                 type='text'
                                 value={title}
