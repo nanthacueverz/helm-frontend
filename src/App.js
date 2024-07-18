@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './App.css';
@@ -28,7 +27,7 @@ function App() {
     const deleteItem = async (id) => {
         try {
             await axios.delete(`${backendUrl}/delete/${id}`);
-            setItems(items.filter(item => item.id !== id));
+            setItems(items.filter((item) => item.id !== id));
         } catch (error) {
             console.error('There was an error deleting the item!', error);
         }
@@ -41,7 +40,7 @@ function App() {
             let response;
             if (isEditing) {
                 response = await axios.put(`${backendUrl}/update/${editItem.id}`, newItem);
-                setItems(items.map(item => item.id === editItem.id ? response.data : item));
+                setItems(items.map((item) => (item.id === editItem.id ? response.data : item)));
             } else {
                 response = await axios.post(`${backendUrl}/add`, newItem);
                 setItems([...items, response.data]);
@@ -63,31 +62,50 @@ function App() {
     };
 
     return (
-        <div className="App">
-            <div className="container">
+        <div className='App'>
+            <div className='container'>
                 {/* Items List */}
-                <div className="list-container">
+                <div className='list-container'>
                     <h1>Data List</h1>
                     <ul>
-                        {items.map(item => (
+                        {items.map((item) => (
                             <li key={item.id}>
                                 <h2>{item.title}</h2>
                                 <p>{item.body}</p>
-                                <button style={{ backgroundColor: 'red', color: 'white', padding: '10px', marginRight: '5px' }} onClick={() => deleteItem(item.id)}>Delete</button>
-                                <button style={{ backgroundColor: 'blue', color: 'white', padding: '10px' }} onClick={() => editItemHandler(item)}>Edit</button>
+                                <button
+                                    style={{
+                                        backgroundColor: 'red',
+                                        color: 'white',
+                                        padding: '10px',
+                                        marginRight: '5px',
+                                    }}
+                                    onClick={() => deleteItem(item.id)}
+                                >
+                                    Delete
+                                </button>
+                                <button
+                                    style={{
+                                        backgroundColor: 'blue',
+                                        color: 'white',
+                                        padding: '10px',
+                                    }}
+                                    onClick={() => editItemHandler(item)}
+                                >
+                                    Edit
+                                </button>
                             </li>
                         ))}
                     </ul>
                 </div>
 
                 {/* Add/Edit Item Form */}
-                <div className="form-container">
+                <div className='form-container'>
                     <h2>{isEditing ? 'Edit Data' : 'Add Data'}</h2>
                     <form onSubmit={handleSubmit}>
                         <div>
-                            <label>Name</label>
+                            <label>User Name</label>
                             <input
-                                type="text"
+                                type='text'
                                 value={title}
                                 onChange={(e) => setTitle(e.target.value)}
                                 required
@@ -101,7 +119,7 @@ function App() {
                                 required
                             />
                         </div>
-                        <button type="submit">{isEditing ? 'Update Data' : 'Add Data'}</button>
+                        <button type='submit'>{isEditing ? 'Update Data' : 'Add Data'}</button>
                     </form>
                 </div>
             </div>
